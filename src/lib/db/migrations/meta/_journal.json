@@ -1,0 +1,48 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1756444422901,
+      "tag": "0000_new_katie_power",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1756445680093,
+      "tag": "0001_panoramic_rocket_racer",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1756469492837,
+      "tag": "0002_moaning_scrambler",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1756496424019,
+      "tag": "0003_curly_kabuki",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1756569996241,
+      "tag": "0004_ancient_hex",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1756580169840,
+      "tag": "0005_overconfident_master_chief",
+      "breakpoints": true
+    }
+  ]
+}
