@@ -10,42 +10,38 @@ import {
   FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import LocationSelector from '@/components/ui/location-selector';
 import { Textarea } from '@/components/ui/textarea';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoaderCircle } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
-import { createBrand } from './actions';
-import { useRouter } from 'next/navigation';
+import { createCategory } from './actions';
 import { paths } from '@/lib/constants';
 
 const formSchema = z.object({
   name: z
     .string()
     .min(2, {
-      message: 'Brand name must be at least 2 characters.'
+      message: 'Category name must be at least 2 characters.'
     })
-    .max(100, {
-      message: 'Brand name must be at most 100 characters.'
-    }).trim(),
-  country: z.string().nonempty({
-    message: 'Please select a country.'
-  }),
+    .max(50, {
+      message: 'Category name must be at most 50 characters.'
+    })
+    .trim(),
   description: z.string().trim()
 });
 
-export type NewBrand = z.infer<typeof formSchema>;
+export type NewCategory = z.infer<typeof formSchema>;
 
-export default function NewBrandForm() {
+export default function NewCategoryForm() {
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
-      country: '',
       description: ''
     }
   });
@@ -55,13 +51,13 @@ export default function NewBrandForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setCreating(true);
-      const brand = await createBrand(values);
-      console.log("brand", brand);
-      toast.success(`New brand created: "${brand[0].name}"`);
-      router.push(paths.brands);
+      const category = await createCategory(values);
+      console.log('category', category);
+      toast.success(`New category created: "${category[0].name}"`);
+      router.push(paths.categories);
     } catch (error: any) {
       console.error('Form submission error', error.message);
-      toast.error('Failed to create brand.', error.message);
+      toast.error('Failed to create category.', error.message);
     } finally {
       setCreating(false);
     }
@@ -75,39 +71,11 @@ export default function NewBrandForm() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Brand Name</FormLabel>
+              <FormLabel>Category Name</FormLabel>
               <FormControl>
-                <Input placeholder="Enter the brand name" type="text" {...field} />
+                <Input placeholder="Enter the category name" type="text" {...field} />
               </FormControl>
-              <FormDescription>Name of the brand</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="country"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Country Selector</FormLabel>
-              {/* <div className="flex w-full gap-2"> */}
-              <LocationSelector
-                className="w-full"
-                onCountryChange={(country) => {
-                  form.setValue(field.name, country?.name || '');
-                }}
-              />
-              {/* <Button
-                  onClick={() => form.setValue(field.name, '')}
-                  type="button"
-                  size="icon"
-                  variant="outline"
-                >
-                  <X className="w-6 h-6" />
-                </Button>
-              </div> */}
-              <FormDescription>Select the country where the brand is located</FormDescription>
+              <FormDescription>Name of the category</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -121,12 +89,12 @@ export default function NewBrandForm() {
               <FormLabel>Description</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Enter brand description"
+                  placeholder="Enter category description"
                   className="resize-none"
                   {...field}
                 />
               </FormControl>
-              <FormDescription>Describe the brand you want to add</FormDescription>
+              <FormDescription>Describe the category you want to add</FormDescription>
               <FormMessage />
             </FormItem>
           )}

@@ -1,7 +1,6 @@
 import { relations } from 'drizzle-orm';
 import { int, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
-// Brands
 export const brands = sqliteTable('brands', {
   id: int().primaryKey({ autoIncrement: true }),
   name: text().notNull().unique("Brand name must be unique"),
@@ -20,6 +19,8 @@ export const categories = sqliteTable('categories', {
   name: text().notNull().unique(),
   description: text()
 });
+
+export type Category = typeof categories.$inferSelect;
 
 export const categoryRelations = relations(categories, ({ many }) => ({
   devices: many(devices)

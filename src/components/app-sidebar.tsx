@@ -14,6 +14,7 @@ import {
   // Help,
   // InnerShadowTop,
   Smartphone,
+  Tags,
   // Report,
   // Search,
   // Settings,
@@ -35,6 +36,7 @@ import {
 } from '@/components/ui/sidebar'
 import { Building2 } from "lucide-react"
 import Link from "next/link"
+import { paths } from "@/lib/constants"
 
 const data = {
   user: {
@@ -45,19 +47,19 @@ const data = {
   navMain: [
     {
       title: "Brands",
-      url: "/brands",
+      url: paths.brands,
       icon: Building2,
     },
     {
       title: "Devices",
-      url: "/devices",
+      url: paths.devices,
       icon: Smartphone,
     },
-    // {
-    //   title: "Analytics",
-    //   url: "#",
-    //   icon: IconChartBar,
-    // },
+    {
+      title: "Categories",
+      url: paths.categories,
+      icon: Tags,
+    },
     // {
     //   title: "Projects",
     //   url: "#",
