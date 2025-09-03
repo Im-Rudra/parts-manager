@@ -1,8 +1,8 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "0da5896c-40a0-4483-9480-074bcf68bce5",
-  "prevId": "2837d229-735c-4f47-8823-4a2ed68c873d",
+  "id": "540be648-1f6d-43db-8755-af6a0004cc89",
+  "prevId": "24e00b1c-3210-4fab-84fd-1af713890310",
   "tables": {
     "brands": {
       "name": "brands",
@@ -16,7 +16,7 @@
         },
         "name": {
           "name": "name",
-          "type": "text",
+          "type": "text(50)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -34,11 +34,19 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'\"2025-09-03T20:20:09.278Z\"'"
         }
       },
       "indexes": {
-        "brands_name_unique": {
-          "name": "brands_name_unique",
+        "Brand name must be unique": {
+          "name": "Brand name must be unique",
           "columns": [
             "name"
           ],
@@ -62,7 +70,7 @@
         },
         "name": {
           "name": "name",
-          "type": "text",
+          "type": "text(50)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -73,6 +81,14 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'\"2025-09-03T20:20:09.278Z\"'"
         }
       },
       "indexes": {
@@ -89,6 +105,140 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
+    "devices_to_categories": {
+      "name": "devices_to_categories",
+      "columns": {
+        "device_id": {
+          "name": "device_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "category_id": {
+          "name": "category_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'\"2025-09-03T20:20:09.278Z\"'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "devices_to_categories_device_id_devices_id_fk": {
+          "name": "devices_to_categories_device_id_devices_id_fk",
+          "tableFrom": "devices_to_categories",
+          "tableTo": "devices",
+          "columnsFrom": [
+            "device_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "devices_to_categories_category_id_categories_id_fk": {
+          "name": "devices_to_categories_category_id_categories_id_fk",
+          "tableFrom": "devices_to_categories",
+          "tableTo": "categories",
+          "columnsFrom": [
+            "category_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "devices_to_categories_device_id_category_id_pk": {
+          "columns": [
+            "device_id",
+            "category_id"
+          ],
+          "name": "devices_to_categories_device_id_category_id_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "devices_to_parts": {
+      "name": "devices_to_parts",
+      "columns": {
+        "device_id": {
+          "name": "device_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "parts_id": {
+          "name": "parts_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'\"2025-09-03T20:20:09.278Z\"'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "devices_to_parts_device_id_devices_id_fk": {
+          "name": "devices_to_parts_device_id_devices_id_fk",
+          "tableFrom": "devices_to_parts",
+          "tableTo": "devices",
+          "columnsFrom": [
+            "device_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "devices_to_parts_parts_id_parts_id_fk": {
+          "name": "devices_to_parts_parts_id_parts_id_fk",
+          "tableFrom": "devices_to_parts",
+          "tableTo": "parts",
+          "columnsFrom": [
+            "parts_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "devices_to_parts_device_id_parts_id_pk": {
+          "columns": [
+            "device_id",
+            "parts_id"
+          ],
+          "name": "devices_to_parts_device_id_parts_id_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
     "devices": {
       "name": "devices",
       "columns": {
@@ -101,7 +251,7 @@
         },
         "name": {
           "name": "name",
-          "type": "text",
+          "type": "text(100)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -115,7 +265,7 @@
         },
         "model": {
           "name": "model",
-          "type": "text",
+          "type": "text(100)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -124,8 +274,16 @@
           "name": "release_year",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'\"2025-09-03T20:20:09.278Z\"'"
         }
       },
       "indexes": {
@@ -148,7 +306,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "set null",
           "onUpdate": "no action"
         }
       },
@@ -156,53 +314,117 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
-    "device_categories": {
-      "name": "device_categories",
+    "parts": {
+      "name": "parts",
       "columns": {
-        "device": {
-          "name": "device",
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text(100)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "parts_type_id": {
+          "name": "parts_type_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "category": {
-          "name": "category",
+        "created_at": {
+          "name": "created_at",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "'\"2025-09-03T20:20:09.278Z\"'"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "parts_name_unique": {
+          "name": "parts_name_unique",
+          "columns": [
+            "name"
+          ],
+          "isUnique": true
+        }
+      },
       "foreignKeys": {
-        "device_categories_device_devices_id_fk": {
-          "name": "device_categories_device_devices_id_fk",
-          "tableFrom": "device_categories",
-          "tableTo": "devices",
+        "parts_parts_type_id_parts_types_id_fk": {
+          "name": "parts_parts_type_id_parts_types_id_fk",
+          "tableFrom": "parts",
+          "tableTo": "parts_types",
           "columnsFrom": [
-            "device"
+            "parts_type_id"
           ],
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "device_categories_category_categories_id_fk": {
-          "name": "device_categories_category_categories_id_fk",
-          "tableFrom": "device_categories",
-          "tableTo": "categories",
-          "columnsFrom": [
-            "category"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
+          "onDelete": "set null",
           "onUpdate": "no action"
         }
       },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "parts_types": {
+      "name": "parts_types",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text(50)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'\"2025-09-03T20:20:09.278Z\"'"
+        }
+      },
+      "indexes": {
+        "parts_types_name_unique": {
+          "name": "parts_types_name_unique",
+          "columns": [
+            "name"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "checkConstraints": {}
