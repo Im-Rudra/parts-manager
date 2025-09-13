@@ -35,7 +35,7 @@ export default function Search({ className, searchQuery, searchKey }: BrandSearc
       value={value}
       onChange={(e) => setValue(e.target.value)}
       className={cn(className)}
-      placeholder="Search brand..."
+      placeholder={`Search ${searchKey}...`}
     />
   );
 }

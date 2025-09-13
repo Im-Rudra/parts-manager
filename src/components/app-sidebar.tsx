@@ -3,6 +3,7 @@
 import * as React from "react"
 import {
   Boxes,
+  Settings,
   // Camera,
   // ChartBar,
   // Dashboard,
@@ -60,16 +61,16 @@ const data = {
       url: paths.categories,
       icon: Tags,
     },
-    // {
-    //   title: "Projects",
-    //   url: "#",
-    //   icon: IconFolder,
-    // },
-    // {
-    //   title: "Team",
-    //   url: "#",
-    //   icon: IconUsers,
-    // },
+    {
+      title: "Parts Types",
+      url: paths.parts_types,
+      icon: Settings,
+    },
+    {
+      title: "Parts",
+      url: paths.parts,
+      icon: Settings,
+    }
   ],
   // navClouds: [
   //   {

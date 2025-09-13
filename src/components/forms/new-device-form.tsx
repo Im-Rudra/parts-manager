@@ -18,16 +18,7 @@ import {
   FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  MultiSelect
-  // MultiSelector,
-  // MultiSelectorContent,
-  // MultiSelectorInput,
-  // MultiSelectorItem,
-  // MultiSelectorList,
-  // MultiSelectorTrigger,
-  // MultiSelectValue
-} from '@/components/ui/multi-select';
+import { MultiSelect } from '@/components/ui/multi-select';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Brand, Category } from '@/lib/db/schema/schema';
 import { cn } from '@/lib/utils';
@@ -210,14 +201,15 @@ export default function NewDeviceForm({ brandList, categoryList }: Props) {
           name="categories"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Select Frameworks</FormLabel>
+              <FormLabel>Select Categories</FormLabel>
               <FormControl>
                 <MultiSelect
+                  value={field.value.map((v) => v.toString())}
+                  singleLine
                   options={categoryList.map((c) => ({
                     value: c.id.toString(),
                     label: c.name
                   }))}
-                  value={field.value.map((v) => v.toString())}
                   onValueChange={(values) => {
                     form.setValue(
                       'categories',

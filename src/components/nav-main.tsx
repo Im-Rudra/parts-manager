@@ -47,7 +47,8 @@ export function NavMain({
         </SidebarMenu>
         <SidebarMenu>
           {items.map((item) => {
-            const isActive = pathname.includes(item.url);
+            const path = pathname.split("/")[1];
+            const isActive = path === item.url.split("/")[1];
             return (
               <SidebarMenuItem key={item.title}>
                 <Link href={item.url}>

@@ -1,10 +1,10 @@
 import NewCreateButton from '@/components/new-create-button';
-import Search from '@/components/search';
 import { Badge } from '@/components/ui/badge';
 import { paths, SearchKeys } from '@/lib/constants';
 import db from '@/lib/db';
-import { devices } from '@/lib/db/schema/schema';
-import DeviceList from './components/device-list';
+import { partsTypes } from '@/lib/db/schema/schema';
+import PartsTypeList from './components/parts-type-list';
+import Search from '../../components/search';
 
 type SearchQuery = {
   search: string;
@@ -14,31 +14,32 @@ interface Props {
   searchParams: Promise<SearchQuery>;
 }
 
-export default async function Devices({ searchParams }: Props) {
+export default async function PartsTypes({ searchParams }: Props) {
   const { search } = await searchParams;
-  const deviceCount = await db.$count(devices);
-  const deviceList = await db.query.devices.findMany({
-    where: search ? (device, op) => op.like(device.name, `%${search}%`) : undefined
+  const partsTypeCount = await db.$count(partsTypes);
+  const partsTypeList = await db.query.partsTypes.findMany({
+    orderBy: (partsType, op) => op.asc(partsType.name),
+    where: search ? (partsType, op) => op.like(partsType.name, `%${search}%`) : undefined
   });
   return (
     <div className="flex flex-col gap-4 mx-auto">
       <div className="flex items-center gap-2">
         <h1 className="text-center text-2xl font-semibold flex items-center">
-          <span>Devices</span>
-          {deviceCount > 0 && (
+          <span>Parts Types</span>
+          {partsTypeCount > 0 && (
             <Badge variant="secondary" className="ml-2 bg-blue-500 text-white dark:bg-blue-600">
-              {deviceCount}
+              {partsTypeCount}
             </Badge>
           )}
         </h1>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div className="flex items-center justify-between gap-3">
-          <Search searchKey={SearchKeys.DEVICE} searchQuery={search} />
-          <NewCreateButton creationType="device" href={paths.newDevice} />
+          <Search searchKey={SearchKeys.PARTS_TYPE} searchQuery={search} />
+          <NewCreateButton creationType="parts-type" href={paths.newPartsType} />
         </div>
       </div>
-      <DeviceList devices={deviceList} />
+      <PartsTypeList partsTypes={partsTypeList} />
     </div>
   );
 }

@@ -35,6 +35,8 @@ export const partsTypes = sqliteTable('parts_types', {
   created_at: int({ mode: 'timestamp' }).default(new Date())
 });
 
+export type PartsType = typeof partsTypes.$inferSelect;
+
 export const partsTypeRelations = relations(partsTypes, ({ many }) => ({
   parts: many(parts)
 }));
@@ -62,6 +64,8 @@ export const devices = sqliteTable('devices', {
   release_year: int(),
   created_at: int({ mode: 'timestamp' }).default(new Date())
 });
+
+export type Device = typeof devices.$inferSelect;
 
 export const deviceRelations = relations(devices, ({ one, many }) => ({
   brand: one(brands, {
